@@ -4,15 +4,15 @@ services:
       context: .
       dockerfile: apps/reservations/Dockerfile
       target: development
-    command: npm run start:dev
+    command: npm run start:dev reservations
     ports:
       - '3000:3000'
-    # volumes:
-    #   - .:/usr/src/app
+    volumes:
+      - .:/usr/src/app
     depends_on:
       - postgres
     env_file:
-    - .env
+      - apps/reservations/.env
     networks:
       - postgres
 
@@ -24,16 +24,20 @@ services:
     command: npm run start:dev auth
     ports:
       - '3001:3001'
+    volumes:
+      - .:/usr/src/app
     depends_on:
       - postgres
     env_file:
-    - .env
+      - apps/auth/.env
     networks:
       - postgres
 
   postgres:
     container_name: postgres_container
     image: postgres
+    env_file:
+    - .env
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-secretpass}
