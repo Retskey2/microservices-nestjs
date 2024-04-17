@@ -24,7 +24,9 @@
       "@app/common/*": [
         "libs/common/src/*"
       ],
-      "@apps/*": ["./apps/*"]
+      "@apps/*": [
+        "./apps/*"
+      ]
     }
   }
 }
